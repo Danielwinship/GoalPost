@@ -44,7 +44,7 @@ extension GoalsVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "goalCell") as? GoalCell else {return UITableViewCell()}
-        cell.configureCell(description: "Eat Salad", type: "Short Term", goalProgressAmount: 2)
+        cell.configureCell(description: "eat salad more", type: .shortTerm, goalProgressAmount: 2)
         return cell
     }
 }
