@@ -14,8 +14,9 @@ class CreateGoalVC: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var goalTextView: UITextView!
     @IBOutlet weak var shortTermButton: UIButton!
-    
     @IBOutlet weak var longTermButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,12 +29,15 @@ class CreateGoalVC: UIViewController {
     
     
     @IBAction func shortTermButtonWasPressed(_ sender: Any) {
+        
     }
     
     @IBAction func longTermButtonWasPressed(_ sender: Any) {
+        
     }
     
     @IBAction func nextButtonWasPressed(_ sender: Any) {
+        
     }
     
     
