@@ -145,17 +145,38 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bf8-be-W39">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOAL COMPLETE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pv6-Sl-VCM">
+                                                            <rect key="frame" x="57" y="17" width="261" height="36"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.89411765340000005" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Pv6-Sl-VCM" firstAttribute="centerX" secondItem="Bf8-be-W39" secondAttribute="centerX" id="93e-dX-x3Y"/>
+                                                        <constraint firstItem="Pv6-Sl-VCM" firstAttribute="centerY" secondItem="Bf8-be-W39" secondAttribute="centerY" id="URg-wA-fwV"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Bf8-be-W39" secondAttribute="trailing" id="2dv-OV-S8N"/>
                                                 <constraint firstItem="zWh-It-tsh" firstAttribute="top" secondItem="uta-vv-cwW" secondAttribute="topMargin" id="6zQ-Nh-5H2"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZKS-Xl-NRl" secondAttribute="trailing" constant="8" id="AwZ-mv-3os"/>
+                                                <constraint firstItem="Bf8-be-W39" firstAttribute="leading" secondItem="uta-vv-cwW" secondAttribute="leading" id="LNZ-lK-Xoh"/>
                                                 <constraint firstAttribute="bottom" secondItem="ZKS-Xl-NRl" secondAttribute="bottom" constant="8" id="LNr-Oz-NYK"/>
                                                 <constraint firstItem="ZKS-Xl-NRl" firstAttribute="top" secondItem="uta-vv-cwW" secondAttribute="top" constant="8" id="LpJ-se-u2Q"/>
+                                                <constraint firstItem="Bf8-be-W39" firstAttribute="top" secondItem="uta-vv-cwW" secondAttribute="top" id="m23-rb-Xm2"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="zWh-It-tsh" secondAttribute="bottom" id="neD-r8-FPQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Bf8-be-W39" secondAttribute="bottom" id="oSr-Fy-AMd"/>
                                                 <constraint firstItem="zWh-It-tsh" firstAttribute="leading" secondItem="uta-vv-cwW" secondAttribute="leadingMargin" id="s0E-7s-S94"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="completionView" destination="Bf8-be-W39" id="huE-g0-4ZO"/>
                                             <outlet property="goalDescriptionLabel" destination="Ezp-5X-bon" id="5Ay-KS-Mhh"/>
                                             <outlet property="goalProgressLabel" destination="ZKS-Xl-NRl" id="Enn-4r-SRn"/>
                                             <outlet property="goalTypeLabel" destination="AGg-2w-2sg" id="5AR-IB-8lx"/>
