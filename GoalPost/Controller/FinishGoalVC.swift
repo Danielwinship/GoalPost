@@ -34,7 +34,13 @@ class FinishGoalVC: UIViewController,UITextFieldDelegate {
    
     
     @IBAction func createGoalButtonWasPressed(_ sender: Any) {
-        
+        if pointsTextField.text != nil {
+            self.save { (complete) in
+                if complete {
+                    dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @IBAction func backButtonWasPressed(_ sender: Any) {
@@ -55,6 +61,7 @@ class FinishGoalVC: UIViewController,UITextFieldDelegate {
         
         do {
             try managedContext.save()
+            print("Successfully saved data")
             completion(true)
         }catch {
             debugPrint("Could not save \(error.localizedDescription)")
