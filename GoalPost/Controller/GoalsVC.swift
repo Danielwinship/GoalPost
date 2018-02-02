@@ -16,8 +16,11 @@ class GoalsVC: UIViewController {
     //Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var undoDeleteView: UIView!
     
     var goals: [Goal] = []
+    var undoDeleteGoal: [Goal] = []
+    var undoDeleteGoalIndexPath: IndexPath = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +34,10 @@ class GoalsVC: UIViewController {
         super.viewWillAppear(animated)
        fetchCoreDataObjects()
         tableView.reloadData()
+        
     }
+    
+  
     
     func fetchCoreDataObjects() {
         self.fetch { (success) in
@@ -39,21 +45,32 @@ class GoalsVC: UIViewController {
                 if goals.count >= 1 {
                     tableView.isHidden = false
                     
+                    
                 } else {
                     tableView.isHidden = true
+                    undoDeleteView.isHidden = true
                 }
-            }
+          
+          }
         }
     }
 
     @IBAction func addGoalButtonWasPressed(_ sender: Any) {
         guard let createGoalVC = storyboard?.instantiateViewController(withIdentifier: "CreateGoalVC") else {return}
-        
         presentDetail(createGoalVC)
-        
     }
     
 
+    @IBAction func undoDeleteButtonWasPressed(_ sender: Any) {
+        if undoDeleteGoal.count > 0 {
+        undoDeleteGoal() { (success) in
+            if success {
+                fetchCoreDataObjects()
+                tableView.reloadData()
+            }
+        }
+    }
+}
 
 }
 
@@ -86,6 +103,8 @@ extension GoalsVC: UITableViewDelegate,UITableViewDataSource {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "DELETE") { (rowAction, indexPath) in
             self.removeGoal(atIndexPath: indexPath)
             self.fetchCoreDataObjects()
+            self.undoDeleteView.isHidden = false
+            self.undoDeleteGoalIndexPath = indexPath
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         let addAction = UITableViewRowAction(style: .normal, title: "ADD 1") { (rowAction, indexPath) in
@@ -110,7 +129,7 @@ extension GoalsVC {
         
         if chosenGoal.goalProgress < chosenGoal.goalCompletionValue {
             chosenGoal.goalProgress = chosenGoal.goalProgress + 1
-        } else{
+        }else {
             return
         }
         
@@ -131,6 +150,7 @@ extension GoalsVC {
             goals = try  managedContext.fetch(fetchRequest)
             print("Successfully fetched data")
             completion(true)
+            
         }catch {
             debugPrint("Could not fetch \(error.localizedDescription)")
             completion(false)
@@ -141,13 +161,41 @@ extension GoalsVC {
     func removeGoal(atIndexPath indexPath: IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
         
+        self.undoDeleteGoal = [goals[indexPath.row]]
+       
         managedContext.delete(goals[indexPath.row])
+        
         
         do {
            try managedContext.save()
             print("Successfully removed goal")
+           
         }catch {
             debugPrint("Could not remove \(error.localizedDescription)")
+        }
+    }
+    
+    
+    
+    func undoDeleteGoal(completion:( _ finished:Bool) -> ()) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
+        let undoGoal = Goal(context: managedContext)
+        
+        
+        undoGoal.goalDescription = undoDeleteGoal[0].goalDescription
+        undoGoal.goalType = undoDeleteGoal[0].goalType
+        undoGoal.goalCompletionValue = undoDeleteGoal[0].goalCompletionValue
+        undoGoal.goalProgress = undoDeleteGoal[0].goalProgress
+        
+        
+        do {
+            try managedContext.save()
+            print("Successfully saved undo data")
+            completion(true)
+            undoDeleteGoal.removeAll()
+        }catch {
+            debugPrint("Could not save undo data \(error.localizedDescription)")
+            completion(false)
         }
     }
     
