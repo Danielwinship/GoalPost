@@ -11,6 +11,8 @@ import CoreData
 
 let appDelegate = UIApplication.shared.delegate as? AppDelegate
 
+
+
 class GoalsVC: UIViewController {
     
     //Outlets
@@ -19,7 +21,10 @@ class GoalsVC: UIViewController {
     @IBOutlet weak var undoDeleteView: UIView!
     
     var goals: [Goal] = []
-    var undoDeleteGoal: [Goal] = []
+    var undoDeleteGoal:[UndoGoal] = []
+    
+
+    
     var undoDeleteGoalIndexPath: IndexPath = []
     
     override func viewDidLoad() {
@@ -37,6 +42,7 @@ class GoalsVC: UIViewController {
         
     }
     
+ 
   
     
     func fetchCoreDataObjects() {
@@ -67,6 +73,7 @@ class GoalsVC: UIViewController {
             if success {
                 fetchCoreDataObjects()
                 tableView.reloadData()
+                undoDeleteView.isHidden = true
             }
         }
     }
@@ -122,6 +129,8 @@ extension GoalsVC: UITableViewDelegate,UITableViewDataSource {
 
 extension GoalsVC {
     
+  
+    
     func setProgress( atIndexPath indexPath: IndexPath){
          guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
         
@@ -161,7 +170,8 @@ extension GoalsVC {
     func removeGoal(atIndexPath indexPath: IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
         
-        self.undoDeleteGoal = [goals[indexPath.row]]
+        let undoGoal = UndoGoal(goalDescription: goals[indexPath.row].goalDescription!, goalType: goals[indexPath.row].goalType!, goalCompletionValue: goals[indexPath.row].goalCompletionValue, goalProgress: goals[indexPath.row].goalProgress)
+        undoDeleteGoal.append(undoGoal)
        
         managedContext.delete(goals[indexPath.row])
         
@@ -180,8 +190,8 @@ extension GoalsVC {
     func undoDeleteGoal(completion:( _ finished:Bool) -> ()) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else {return}
         let undoGoal = Goal(context: managedContext)
-        
-        
+        print(undoDeleteGoal.count)
+        print(undoDeleteGoal[0].goalDescription)
         undoGoal.goalDescription = undoDeleteGoal[0].goalDescription
         undoGoal.goalType = undoDeleteGoal[0].goalType
         undoGoal.goalCompletionValue = undoDeleteGoal[0].goalCompletionValue
@@ -192,7 +202,7 @@ extension GoalsVC {
             try managedContext.save()
             print("Successfully saved undo data")
             completion(true)
-            undoDeleteGoal.removeAll()
+            
         }catch {
             debugPrint("Could not save undo data \(error.localizedDescription)")
             completion(false)

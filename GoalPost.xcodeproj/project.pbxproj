@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0728F73F202226EF00EFD88C /* CreateGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0728F73E202226EF00EFD88C /* CreateGoalVC.swift */; };
+		079AACAE2024EA520008CFA0 /* UndoGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079AACAD2024EA520008CFA0 /* UndoGoal.swift */; };
 		079D6CCC202116A80026153D /* GoalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079D6CCB202116A80026153D /* GoalType.swift */; };
 		07C18072202287980053D626 /* UIViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C18071202287980053D626 /* UIViewControllerExt.swift */; };
 		07C1807420228E1B0053D626 /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C1807320228E1B0053D626 /* UIViewExt.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		0728F73E202226EF00EFD88C /* CreateGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalVC.swift; sourceTree = "<group>"; };
+		079AACAD2024EA520008CFA0 /* UndoGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoGoal.swift; sourceTree = "<group>"; };
 		079D6CCB202116A80026153D /* GoalType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalType.swift; sourceTree = "<group>"; };
 		07C18071202287980053D626 /* UIViewControllerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExt.swift; sourceTree = "<group>"; };
 		07C1807320228E1B0053D626 /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
@@ -51,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		079AACAC2024EA380008CFA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				079AACAD2024EA520008CFA0 /* UndoGoal.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		07F2F172201F321F00580F4A = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +80,7 @@
 		07F2F17D201F321F00580F4A /* GoalPost */ = {
 			isa = PBXGroup;
 			children = (
+				079AACAC2024EA380008CFA0 /* Model */,
 				07F2F197201F326D00580F4A /* Extensions */,
 				07F2F196201F326700580F4A /* Enums */,
 				07F2F194201F324600580F4A /* View */,
@@ -195,6 +206,7 @@
 				07F2F199201F3B6600580F4A /* GoalCell.swift in Sources */,
 				0728F73F202226EF00EFD88C /* CreateGoalVC.swift in Sources */,
 				079D6CCC202116A80026153D /* GoalType.swift in Sources */,
+				079AACAE2024EA520008CFA0 /* UndoGoal.swift in Sources */,
 				07F2F181201F321F00580F4A /* GoalsVC.swift in Sources */,
 				07C1807420228E1B0053D626 /* UIViewExt.swift in Sources */,
 				07F2F17F201F321F00580F4A /* AppDelegate.swift in Sources */,
